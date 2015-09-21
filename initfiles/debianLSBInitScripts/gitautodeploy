@@ -15,10 +15,10 @@ NAME=gitautodeploy
 PATH=/sbin:/usr/sbin:/bin:/usr/bin
 DESC="GitAutodeploy"
 DAEMON=/opt/Git-Auto-Deploy/GitAutoDeploy.py
-DAEMON_UID=root
-DAEMON_GID=root
+DAEMON_UID=git
+DAEMON_GID=git
 RUNDIR=/var/run/$NAME
-PIDFILE=/var/run/$NAME.pid
+PIDFILE=/opt/Git-Auto-Deploy/$NAME.pid
 PWD=/opt/Git-Auto-Deploy/
 OPTIONS="--daemon-mode"
 USER=root
@@ -62,7 +62,7 @@ do_start()
 	if [ ! -d $RUNDIR ]; then
 		mkdir $RUNDIR
 	fi
-	
+
 	if ! dpkg-statoverride --list $dir >/dev/null 2>&1; then
 		chown $DAEMON_UID:$DAEMON_GID $RUNDIR
 		chmod g-w,o-rwx $RUNDIR
@@ -86,7 +86,7 @@ do_stop()
 	#   1 if daemon was already stopped
 	#   2 if daemon could not be stopped
 	#   other if a failure occurred
-	start-stop-daemon --stop --signal 6 --retry 30 --pidfile $PIDFILE 
+	start-stop-daemon --stop --signal 6 --retry 30 --pidfile $PIDFILE
 }
 
 #
