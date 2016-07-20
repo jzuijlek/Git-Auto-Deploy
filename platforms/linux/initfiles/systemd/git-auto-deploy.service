@@ -2,8 +2,8 @@
 Description=GitAutoDeploy
 
 [Service]
-User=www-data
-Group=www-data
+User=git
+Group=git
 WorkingDirectory=/opt/Git-Auto-Deploy/
 ExecStart=/usr/bin/python /opt/Git-Auto-Deploy/gitautodeploy --daemon-mode
 
