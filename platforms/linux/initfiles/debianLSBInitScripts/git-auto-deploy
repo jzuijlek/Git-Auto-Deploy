@@ -11,21 +11,22 @@
 
 # Author: JA Nache <nache.nache@gmail.com>
 
-NAME=gitautodeploy
+NAME="git-auto-deploy"
 PATH=/sbin:/usr/sbin:/bin:/usr/bin
 DESC="GitAutodeploy"
-DAEMON=/opt/Git-Auto-Deploy/GitAutoDeploy.py
+DAEMON="/usr/bin/env python /opt/Git-Auto-Deploy/gitautodeploy"
 DAEMON_UID=git
 DAEMON_GID=git
 RUNDIR=/var/run/$NAME
 PIDFILE=/opt/Git-Auto-Deploy/$NAME.pid
+LOGFILE=/opt/Git-Auto-Deploy/$NAME.log
 PWD=/opt/Git-Auto-Deploy/
-OPTIONS="--daemon-mode"
+OPTIONS="--daemon-mode --quiet --pid-file $PIDFILE --log-file $LOGFILE"
 USER=root
 SCRIPTNAME=/etc/init.d/$NAME
 
 # Exit if the package is not installed
-[ -x $DAEMON ] || exit 0
+#[ -x $DAEMON ] || echo "$NAME is not installed" && exit 0
 
 # Load the VERBOSE setting and other rcS variables
 . /lib/init/vars.sh
